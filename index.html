@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+
+    <link rel="stylesheet" href="themes/fit.min.css" />
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css" />
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+    <link href="css/mobiscroll.custom-2.5.0.min.css" rel="stylesheet" type="text/css" />
+    <script src="js/mobiscroll.custom-2.5.0.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/index.css" />
+
+    <script src="index.js">
+
+  </script>
+    <script> function spanClick(agreeid){
+
+        $.ajax({
+            type: "get",
+            url: 'http://www.ysrule.com/yy/agreequestion.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
+            data: {agreeid:agreeid
+            },
+            cache: true, //默认值true
+            dataType: "jsonp",
+            jsonp: "callbackfun",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            jsonpCallback: "jsonpCallback",
+            //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+            //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
+            success: function (json) {
+               alert("赞一下成功！");
+
+
+            },
+            error: function (error) {
+                alert("erroe");
+            }
+        });
+    }
+
+   </script>
+
+   
+</head>
+<body>
+
+<!-- Home -->
+<div data-role="page" id="index" data-theme="b">
+    <div data-theme="b" data-role="header" data-position="fixed"  >
+        <h3 >
+            好习惯,问医生
+        </h3>
+    </div>
+    <div data-role="content">
+        <input type="text" name="username" id="doctorName" placeholder="医生名" data-clear-btn=true/>
+        <input type="text" name="password" id="password" placeholder="密码" data-clear-btn=true/>
+        <a data-role="button" id="doctorLogin" data-theme="b">登入</a>
+
+    </div>
+    <footer  data-role="footer" data-position="fixed">
+        <nav data-role="navbar">
+            <ul>
+                <li><a href="#index" class="ui-btn-active" data-icon="home">登陆</a></li>
+                <li><a href="#task" data-icon="grid">客户查询</a></li>
+                <li><a href="#adviceList" data-icon="info">我的问题</a></li>
+                <li><a href="#publicQuestions"  data-icon="gear">公共问题</a></li>
+            </ul>
+        </nav>
+    </footer>
+</div>
+
+<div data-role="page" id="welcome" data-theme="b">
+    something
+    <a href="" data-role="button" data-theme="b" id="sub"  data-icon="arrow-l">ok</a>
+</div>
+
+<div data-role="page" id="similiarCase" data-theme="b">
+
+    <div data-role="header" data-theme="b">
+        <h1>与我相似案例</h1>
+        <a   data-role="button" href="#register">返回</a>
+    </div><!-- /header -->
+
+    <div data-role="content" data-theme="b">
+
+        <ul data-role="listview"  id="listViewUser">
+            <li><a href="#">
+                <img src="images/apple.jpg">
+                <h2>养生</h2>
+                <p>道法自然，天人合一</p>
+                <p class="ui-li-aside">iOS</p>
+            </a></li>
+            <li><a href="#">
+                <img src="images/apple.jpg">
+                <h2>BlackBerry 10</h2>
+                <p>BlackBerry launched the Z10 and Q10 with the new BB10 OS</p>
+                <p class="ui-li-aside">BlackBerry</p>
+            </a></li>
+        </ul>
+
+    </div><!-- /content -->
+
+    <footer  data-role="footer" data-position="fixed">
+        <nav data-role="navbar">
+            <ul>
+                <li><a href="#index" class="ui-btn-active" data-icon="home">登陆</a></li>
+                <li><a href="#task" data-icon="grid">客户查询</a></li>
+                <li><a href="#adviceList" data-icon="info">我的问题</a></li>
+                <li><a href="#publicQuestions"  data-icon="gear">公共问题</a></li>
+            </ul>
+        </nav>
+    </footer>
+</div><!-- /page -->
+<div data-role="page" id="adviceOnline" data-theme="b">
+<div data-theme="b" data-role="header" data-position="fixed" >
+    <h3>
+        在线咨询
+    </h3>
+    <a data-role="button" href="#doctorDetail">上一步</a>
+</div>
+<div data-role="content">
+
+    <div data-role="fieldcontain">
+        <label for="questionAsk">提问:</label>
+        <textarea cols="40" rows="8" name="textarea" id="questionAsk" placeholder="请输入咨询内容"></textarea>
+    </div>
+    <a  data-role="button" data-theme="b" id="submitQuestion" >提交</a>
+
+
+
+</div>
+</div>
+
+<div data-role="page" id="adviceList" data-theme="b">
+    <div data-theme="b" data-role="header" data-position="fixed" >
+        <h3>
+            咨询记录
+        </h3>
+        <a data-role="button" href="#doctorDetail">上一步</a>
+    </div>
+    <div data-role="content">
+    <ul data-role="listview" id="messageList" class="ui-listview" data-inset="true" role="listbox">
+        <li><a href="#">
+            <h2>养生</h2>
+            <p>道法自然，天人合一</p>
+            <p class="ui-li-aside">iOS</p>
+        </a></li>
+    </ul>
+
+    </div>
+</div>
+<div data-role="page" id="adviceListDetail" data-theme="b">
+    <div data-theme="b" data-role="header" data-position="fixed" >
+        <h3>
+            咨询记录
+        </h3>
+        <a data-role="button" href="#adviceList">上一步</a>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview" id="messageDetails" class="ui-listview" data-inset="true" role="listbox" >
+            <li><a href="#">
+                <h2>养生</h2>
+                <p>道法自然，天人合一</p>
+                <p class="ui-li-aside">iOS</p>
+            </a></li>
+        </ul>
+        <div data-role="fieldcontain">
+            <label for="questionAsk">医生回答:</label>
+            <textarea cols="40" rows="8" name="textarea" id="questionAskMore" placeholder="请输入咨询内容"></textarea>
+        </div>
+        <a  data-role="button" data-theme="c" id="submitQuestionMore" >提交</a>
+
+
+
+    </div>
+</div>
+<div data-role="page" id="userDetail" data-theme="b">
+    <div data-theme="b" data-role="header" data-position="fixed" >
+        <h3>
+            详细信息
+        </h3>
+        <a data-role="button" href="#similiarCase">上一步</a>
+    </div>
+    <div data-role="content">
+        <h2 id="detailUsername"></h2>
+        <p id="detailSex">性别：</p>
+        <p id="detailBirthday">年龄：</p>
+        <p id="detailJob">职业：</p>
+        <p id="detailSickDate">病程：</p>
+        <p id="detailSickContent">症状：</p>
+        <div data-role="fieldcontain">
+
+        </div>
+
+    </div>
+    <footer data-theme="b" data-role="footer" data-position="fixed">
+        <nav data-role="navbar">
+            <ul>
+                <li><a href="#index" data-icon="home">首页</a></li>
+                <li><a href="#task" data-icon="grid">在线医生</a></li>
+                <li><a href="#similiarCase"  class="ui-btn-active" data-icon="info">相似案例</a></li>
+                <li><a href="#register"  data-icon="gear">账户</a></li>
+            </ul>
+        </nav>
+    </footer>
+</div>
+
+<div data-role="page" id="doctorDetail" data-theme="b">
+    <div data-theme="b" data-role="header" data-position="fixed" >
+        <h3>
+            详细信息
+        </h3>
+        <a data-role="button" href="#task">上一步</a>
+    </div>
+    <div data-role="content">
+        <h2 id="doctorUsername"></h2>
+        <p id="doctorTitle"></p>
+        <p id="doctorRemark"></p>
+        <p id="doctorAddress"></p>
+        <a  data-role="button" data-theme="b" id="adviceHistory" >咨询记录</a>
+        <a href="#adviceOnline"  data-role="button" data-theme="b" id="adviceAsk" >在线咨询</a>
+        <a  data-role="button" data-theme="b" id="advicePhone" >电话咨询</a>
+        <div data-role="fieldcontain">
+
+        </div>
+
+    </div>
+    <footer data-theme="b" data-role="footer" data-position="fixed">
+        <nav data-role="navbar">
+            <ul>
+                <li><a href="#index" class="ui-btn-active" data-icon="home">登陆</a></li>
+                <li><a href="#task" data-icon="grid">客户查询</a></li>
+                <li><a href="#adviceList" data-icon="info">我的问题</a></li>
+                <li><a href="#publicQuestions"  data-icon="gear">公共问题</a></li>
+            </ul>
+        </nav>
+    </footer>
+</div>
+<div data-role="page" data-theme="b" id="task" class="my-page">
+
+    <div data-role="header" data-theme="b">
+        <h1>在线医生</h1>
+        <a href="grid-listview.html" data-shadow="false" data-iconshadow="false" data-icon="arrow-l" data-iconpos="notext" data-rel="back" data-ajax="false">Back</a>
+    </div><!-- /header -->
+
+    <div data-role="content" data-theme="b">
+
+        <ul data-role="listview" id="listDoctor" >
+            <li><a href="#">
+                <h2>养生</h2>
+                <p>道法自然，天人合一</p>
+                <p class="ui-li-aside">iOS</p>
+            </a></li>
+        </ul>
+
+    </div><!-- /content -->
+
+    <footer data-theme="b" data-role="footer" data-position="fixed">
+        <nav data-role="navbar">
+            <ul>
+                <li><a href="#index" data-icon="home">首页</a></li>
+                <li><a href="#task"  class="ui-btn-active" data-icon="grid">在线医生</a></li>
+                <li><a href="#similiarCase"  data-icon="info">相似案例</a></li>
+                <li><a href="#register"  data-icon="gear">账户</a></li>
+            </ul>
+        </nav>
+    </footer>
+</div><!-- /page -->
+
+
+</body>
+</html>

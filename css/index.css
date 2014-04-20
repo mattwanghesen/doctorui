@@ -1,0 +1,6 @@
+.msgDoctorDiv{ border:0px solid #00AEAE; background:#46A3FF; color:#000}
+.msgUserDiv{ border:0px solid #00AEAE; background:#F1E1FF; color:#000}
+.ui-li-has-thumb .ui-btn-inner {
+    min-height: 60px;
+    padding-left: 60px;
+}
