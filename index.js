@@ -352,12 +352,12 @@ $(document).ready(function () {
 
         }
 
-    $("#compare").click(function () {
+    $("#searching").click(function () {
 
             $.ajax({
                 type: "get",
-                url: 'http://www.ysrule.com/yy/searchFolder.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
-                data: {userId:localStorage.getItem('userId'),username: escape($("#username").val()), career: $("#career").val(), birthday: $("#birthday").val(),
+                url: 'http://www.ysrule.com/yy/searchFolderForD.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
+                data: {userId:localStorage.getItem('userId'),username: escape($("#username").val()), career: $("#career").val(), birthdayFrom: $("#birthdayFrom").val(), birthdayTo: $("#birthdayTo").val(),
                     sex: $('input[type="radio"][name="sex"]:checked').val(),sickDate:$("#sickDate").val(),sickContent:escape($("#sickContent").html().substring(15).substr(0,$("#sickContent").html().substring(15).length-5))
                 },
                 cache: true, //默认值true
@@ -591,7 +591,7 @@ $(document).ready(function () {
             $.mobile.changePage("#mysituaton", { transition: "none", changeHash: false });
         });
 
-        $.mobile.changePage("#register", { transition: "none", changeHash: false });
+        $.mobile.changePage("#memberSearch", { transition: "none", changeHash: false });
     });
 
 
