@@ -216,7 +216,7 @@ $(document).ready(function () {
                 type: "get",
                 url: 'http://www.ysrule.com/yy/askMoreQuestion.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
                 data: {userId:localStorage.getItem('userId'),username: escape($("#username").val()), doctorid: localStorage.getItem('currentDoctorID'), content: escape($("#questionAskMore").val()),
-                    doctorname: escape(localStorage.getItem('currentDoctorName')),currentChatId:localStorage.getItem('currentChatId'),isDoctor:1
+                    doctorname: escape(localStorage.getItem('currentDoctorName')),currentChatId:localStorage.getItem('currentChatId'),isDoctor:"True"
                 },
                 cache: true, //默认值true
                 dataType: "jsonp",
@@ -225,11 +225,17 @@ $(document).ready(function () {
                 //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
                 //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
                 success: function (json) {
-                    alert("提问成功！");
-                    $("#messageDetails").empty();
-                    getmessageDetail( localStorage.getItem('currentChatId'));
-                   // localStorage.setItem('currentChatId', this.id);
-
+                    var msg=new Object();
+                    msg.createtime= new Date();
+                    msg.content= $("#questionAskMore").val();
+                    msg.ID=900000;
+                    msg.doctorname=localStorage.getItem('currentDoctorName');
+                    msg.isDoctor="True";
+                    msg.agreenumber=0;
+                    msg.username=$("#username").val();
+                    addQuestionDetails(msg);
+                    $("#messageDetails").listview("refresh");
+                    $("#questionAskMore").val("");
                 },
                 error: function (error) {
                     alert("提问失败！");
@@ -357,7 +363,8 @@ $(document).ready(function () {
             $.ajax({
                 type: "get",
                 url: 'http://www.ysrule.com/yy/searchFolderForD.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
-                data: {userId:localStorage.getItem('userId'),username: escape($("#username").val()), career: $("#career").val(), birthdayFrom: $("#birthdayFrom").val(), birthdayTo: $("#birthdayTo").val(),
+                data: {userId:localStorage.getItem('userId'),username: escape($("#username").val()), career: $("#career").val(), birthdayFrom: $("#birthdayFrom").val(), birthdayTo: $("#birthdayTo").val(),t1:localStorage.getItem('my-1'),t2:localStorage.getItem('my-2'),
+                    t3:localStorage.getItem('my-3'),t4:localStorage.getItem('my-4'),t5:localStorage.getItem('my-5'),t6:localStorage.getItem('my-6'),t7:localStorage.getItem('my-7'),t8:localStorage.getItem('my-8'),t9:localStorage.getItem('my-9'),t10:localStorage.getItem('my-10'),
                     sex: $('input[type="radio"][name="sex"]:checked').val(),sickDate:$("#sickDate").val(),sickContent:escape($("#sickContent").html().substring(15).substr(0,$("#sickContent").html().substring(15).length-5))
                 },
                 cache: true, //默认值true
@@ -368,12 +375,13 @@ $(document).ready(function () {
                 //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
                 success: function (json) {
                     var data = json.magazineTab.records;
+                    $("#listViewUser").empty();
                     $.each(data, function(i, n){
                         addLi(n);
 
                     });
 
-                    $.mobile.changePage("#similiarCase", { transition: "none", changeHash: false });
+                    $.mobile.changePage("#memberListPage", { transition: "none", changeHash: false });
                     $("#listViewUser").listview("refresh");
                     var ulHomes = $("#listViewUser")[0].children;
 
@@ -480,23 +488,21 @@ $(document).ready(function () {
         var ul=$("#messageDetails");
         var listStr="";
         if(obj.isDoctor!="True"){
-            listStr= "<li data-role='list-divider' role='heading' tabindex='0' data-theme='c' class='ui-li ui-li-divider ui-btn ui-bar-e ui-btn-up-d' style='font-size:8pt;font-weight:normal'>"+
-            unescape(obj.username)+" 发布于："+unescape(obj.createtime)+
-            "<span class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:85px;background: url(images/like1.jpg) no-repeat;padding:3px;padding-left:20px'>5</span>"+
-            "<span class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;background: url(images/like1.jpg) no-repeat;padding:3px;padding-left:20px'>442</span></li>"+
-            "<li id='"+obj.ID+"' role='option' tabindex='0' data-theme='c' >"+
-            "<a href='#'>"+
-            "<img width='40' height='40' src='images/like.jpg'/>"+
-            "<div style='font-size:9pt;font-weight:normal;'>"+unescape(obj.content)+"</div></a></li>";
+            listStr= "<li data-role='list-divider' role='heading' tabindex='0' data-theme='c' class='ui-li ui-li-divider ui-btn ui-bar-e ui-btn-up-d' style='font-size:8pt;font-weight:normal;white-space:normal;'>"+
+                unescape(obj.username)+" 发布于："+unescape(obj.createtime)+
+                "<span onclick='spanClick("+obj.ID+");' class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;background: url(images/like1.jpg) no-repeat;padding:3px;padding-left:20px'>"+obj.agreenumber+"</span></li>"+
+                "<li id='"+obj.ID+"' role='option' tabindex='0' data-theme='c' >"+
+                "<a href='#'>"+
+                "<img width='40' height='40' src='images/like.jpg'/>"+
+                "<div style='font-size:9pt;font-weight:normal;word-break:break-all;white-space:normal;'>"+unescape(obj.content)+"</div></a></li>";
         }else{
-             listStr= "<li data-role='list-divider'  role='heading' tabindex='0' class='ui-li ui-li-divider ui-btn-b ui-bar-e ui-btn-up-c' style='font-size:8pt;font-weight:normal'>"+
+            listStr= "<li data-role='list-divider'  role='heading' tabindex='0' class='ui-li ui-li-divider ui-btn-b ui-bar-e ui-btn-up-c' style='font-size:8pt;font-weight:normal'>"+
                 unescape(obj.doctorname)+" 发布于："+unescape(obj.createtime)+
-                "<span class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:55px;background: url(../images/comment.png) no-repeat;padding:3px;padding-left:20px'>34</span>"+
-                "<span class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;background: url(../images/like.gif) no-repeat;padding:3px;padding-left:20px'>442</span></li>"+
+                "<span onclick='spanClick("+obj.ID+");' class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;background: url(images/like1.jpg) no-repeat;padding:3px;padding-left:20px'>"+obj.agreenumber+"</span></li>"+
                 "<li id='"+obj.ID+"' role='option' tabindex='0' data-theme='c' >"+
                 "<a href='#'>"+
                 "<img width='40' height='40' src='images/apple.jpg'/>"+
-                "<div style='font-size:9pt;font-weight:normal;'>"+unescape(obj.content)+"</div></a></li>";
+                "<div style='font-size:9pt;font-weight:normal;word-break:break-all;white-space:normal;'>"+unescape(obj.content)+"</div></a></li>";
         }
         ul[0].innerHTML+=listStr;
     }

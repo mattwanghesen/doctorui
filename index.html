@@ -125,9 +125,9 @@
 <div data-role="page" id="adviceList" data-theme="b">
     <div data-theme="b" data-role="header" data-position="fixed" >
         <h3>
-            咨询记录
+            我的问题
         </h3>
-        <a data-role="button" href="#doctorDetail">上一步</a>
+
     </div>
     <div data-role="content">
     <ul data-role="listview" id="messageList" class="ui-listview" data-inset="true" role="listbox">
@@ -139,6 +139,16 @@
     </ul>
 
     </div>
+    <footer  data-role="footer" data-position="fixed">
+        <nav data-role="navbar">
+            <ul>
+                <li><a href="#index" class="ui-btn-active" data-icon="home">登陆</a></li>
+                <li><a href="#memberSearch" data-icon="grid">客户查询</a></li>
+                <li><a href="#adviceList" data-icon="info">我的问题</a></li>
+                <li><a href="#publicQuestions"  data-icon="gear">公共问题</a></li>
+            </ul>
+        </nav>
+    </footer>
 </div>
 <div data-role="page" id="adviceListDetail" data-theme="b">
     <div data-theme="b" data-role="header" data-position="fixed" >
@@ -170,7 +180,7 @@
         <h3>
             详细信息
         </h3>
-        <a data-role="button" href="#similiarCase">上一步</a>
+        <a data-role="button" href="#memberListPage">上一步</a>
     </div>
     <div data-role="content">
         <h2 id="detailUsername"></h2>
@@ -231,7 +241,7 @@
         <h3>
             会员查询
         </h3>
-        <a data-role="button" href="#similiarCase">上一步</a>
+
     </div>
     <div data-role="content">
       <input type="text" name="username" id="username" placeholder="用户名" data-clear-btn=true/>
@@ -327,11 +337,11 @@
         </nav>
     </footer>
 </div>
-<div data-role="page" data-theme="b" id="task" class="my-page">
+<div data-role="page" data-theme="b" id="memberListPage" class="my-page">
 
     <div data-role="header" data-theme="b">
         <h1>会员列表</h1>
-        <a href="grid-listview.html" data-shadow="false" data-iconshadow="false" data-icon="arrow-l" data-iconpos="notext" data-rel="back" data-ajax="false">Back</a>
+        <a href="#memberSearch" data-shadow="false" data-iconshadow="false" data-icon="arrow-l" data-iconpos="notext" data-rel="back" data-ajax="false">Back</a>
     </div><!-- /header -->
 
     <div data-role="content" data-theme="b">
