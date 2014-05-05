@@ -264,7 +264,64 @@ $(document).ready(function () {
             }
 
         }
+    $("#black").click(function(){
+        $.ajax({
+            type: "get",
+            url: 'http://www.ysrule.com/yy/blackit.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
+            data: {userId:localStorage.getItem('currentID')
+            },
+            cache: true, //默认值true
+            dataType: "jsonp",
+            jsonp: "callbackfun",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            jsonpCallback: "jsonpCallback",
+            //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+            //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
+            success: function (json) {
+                alert("拉黑成功！");
 
+
+            },
+            error: function (error) {
+                alert("拉黑失败！");
+            }
+        });
+
+
+        function jsonpCallback(data) //回调函数
+        {
+            alert(data.message); //
+        }
+
+    });
+    $("#white").click(function(){
+        $.ajax({
+            type: "get",
+            url: 'http://www.ysrule.com/yy/whiteit.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
+            data: {userId:localStorage.getItem('currentID')
+            },
+            cache: true, //默认值true
+            dataType: "jsonp",
+            jsonp: "callbackfun",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            jsonpCallback: "jsonpCallback",
+            //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+            //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
+            success: function (json) {
+                alert("拉白成功！");
+
+
+            },
+            error: function (error) {
+                alert("拉白失败！");
+            }
+        });
+
+
+        function jsonpCallback(data) //回调函数
+        {
+            alert(data.message); //
+        }
+
+    });
     $("#submitQuestionMore").click(function () {
 
             $.ajax({
@@ -306,6 +363,53 @@ $(document).ready(function () {
         }
 
     );
+    function getMyQuestionList(userid) {
+
+        $.ajax({
+            type: "get",
+            url: 'http://www.ysrule.com/yy/myQuestionList.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
+            data: {userId:userid
+            },
+            cache: true, //默认值true
+            dataType: "jsonp",
+            jsonp: "callbackfun",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            jsonpCallback: "jsonpCallback",
+            //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+            //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
+            success: function (json) {
+                var data = json.magazineTab.records;
+                $.each(data, function(i, n){
+                    addQuestions(n);
+
+                });
+                $("#messageList").listview("refresh");
+                var ulHomes = $("#messageList")[0].children;
+
+                $(ulHomes).each(function(){
+                    if(this.id!=""){
+                        $(this).click(function(){
+                            $("#messageDetails").empty();
+                            getmessageDetail(this.id);
+                            localStorage.setItem('currentChatId', this.id);
+                            $.mobile.changePage("#adviceListDetail", { transition: "slideup", changeHash: false });
+                        });
+                    }
+
+                });
+
+            },
+            error: function (error) {
+                alert("erroe4"+userid);
+            }
+        });
+
+
+        function jsonpCallback(data) //回调函数
+        {
+            alert(data.message); //
+        }
+
+    }
     function getQuestionList() {
 
         $.ajax({
@@ -451,7 +555,14 @@ $(document).ready(function () {
                                    $("#detailJob")[0].innerText=$("#detailJob")[0].innerText.substr(0,3)+unescape(n.job);
                                    $("#detailSickContent")[0].innerText=$("#detailSickContent")[0].innerText.substr(0,3)+unescape(n.sickContent);
                                    $("#detailSickDate")[0].innerText=$("#detailSickDate")[0].innerText.substr(0,3)+ages(unescape(n.sickDate));
+                                   $("#isblack")[0].innerText=unescape(n.isblack);
+                                   $("#hisQuestion").unbind();
+                                   $("#hisQuestion").click(function(){
+                                       $("#messageList").empty();
+                                       getMyQuestionList(localStorage.getItem('currentID'));
+                                       $.mobile.changePage("#adviceList", { transition: "slideup", changeHash: false });
 
+                                   })
                                }
 
                             });
