@@ -40,12 +40,67 @@ $(document).ready(function () {
         getMyQuestions();
 
     });
+    $("#showAllQuestion").click(function(){
+        $("#messageList").empty();
+        getAllQuestions();
+    })
+    $("#showMeQuestion").click(function(){
+        $("#messageList").empty();
+        getMyQuestions();
+    })
 
     function getMyQuestions() {
 
         $.ajax({
             type: "get",
             url: 'http://www.ysrule.com/yy/doctorPrivateQuestion.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
+            data: {doctorid:localStorage.getItem('currentDoctorID')
+            },
+            cache: true, //默认值true
+            dataType: "jsonp",
+            jsonp: "callbackfun",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            jsonpCallback: "jsonpCallback",
+            //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+            //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
+            success: function (json) {
+                var data = json.magazineTab.records;
+                $.each(data, function(i, n){
+                    addQuestions(n);
+
+                });
+                $("#messageList").listview("refresh");
+                var ulHomes = $("#messageList")[0].children;
+
+                $(ulHomes).each(function(){
+                    if(this.id!=""){
+                        $(this).click(function(){
+                            $("#messageDetails").empty();
+                            getmessageDetail(this.id);
+                            localStorage.setItem('currentChatId', this.id);
+                            $.mobile.changePage("#adviceListDetail", { transition: "slideup", changeHash: false });
+                        });
+                    }
+
+                });
+
+            },
+            error: function (error) {
+                alert("erroe");
+            }
+        });
+
+
+        function jsonpCallback(data) //回调函数
+        {
+            alert(data.message); //
+        }
+
+    }
+    function getAllQuestions() {
+
+        $.ajax({
+            type: "get",
+            url: 'http://www.ysrule.com/yy/doctorPublicQuestion.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
             data: {doctorid:localStorage.getItem('currentDoctorID')
             },
             cache: true, //默认值true
