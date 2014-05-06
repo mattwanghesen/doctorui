@@ -641,7 +641,7 @@ $(document).ready(function () {
        var listStr= "<li data-role='list-divider' role='heading' tabindex='0' class='ui-li ui-li-divider ui-btn ui-bar-b ui-btn-up-c' style='font-size:8pt;font-weight:normal'>"+
            unescape(obj.username)+" 发布于："+unescape(obj.createtime)+
            "<span class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:55px;background: url(../images/comment.png) no-repeat;padding:3px;padding-left:20px'>34</span>"+
-           "<span onclick='spanClick("+obj.ID+");' class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;" +
+           "<span onclick='deleteQuestion("+obj.ID+");' class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;" +
            "background: url(images/like.png) no-repeat;padding:4px;padding-left:20px'>"+obj.agreenumber+"</span></li>"+
            "<li id='"+obj.ID+"' role='option' tabindex='0' data-theme='c' >"+
             "<a href='#'>"+
@@ -657,7 +657,7 @@ $(document).ready(function () {
         if(obj.isDoctor!="True"){
             listStr= "<li data-role='list-divider' role='heading' tabindex='0' data-theme='c' class='ui-li ui-li-divider ui-btn ui-bar-e ui-btn-up-d' style='font-size:8pt;font-weight:normal;white-space:normal;'>"+
                 unescape(obj.username)+" 发布于："+unescape(obj.createtime)+
-                "<span onclick='spanClick("+obj.ID+");' class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;background: url(images/like1.jpg) no-repeat;padding:3px;padding-left:20px'>"+obj.agreenumber+"</span></li>"+
+                "<span onclick='deleteQuestion("+obj.ID+");' class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;background: url(images/like1.jpg) no-repeat;padding:3px;padding-left:20px'>"+obj.agreenumber+"</span></li>"+
                 "<li id='"+obj.ID+"' role='option' tabindex='0' data-theme='c' >"+
                 "<a href='#'>"+
                 "<img width='40' height='40' src='images/like.jpg'/>"+
@@ -665,7 +665,7 @@ $(document).ready(function () {
         }else{
             listStr= "<li data-role='list-divider'  role='heading' tabindex='0' class='ui-li ui-li-divider ui-btn-b ui-bar-e ui-btn-up-c' style='font-size:8pt;font-weight:normal'>"+
                 unescape(obj.doctorname)+" 发布于："+unescape(obj.createtime)+
-                "<span onclick='spanClick("+obj.ID+");' class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;background: url(images/like1.jpg) no-repeat;padding:3px;padding-left:20px'>"+obj.agreenumber+"</span></li>"+
+                "<span onclick='deleteQuestion("+obj.ID+");' class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;background: url(images/like1.jpg) no-repeat;padding:3px;padding-left:20px'>"+obj.agreenumber+"</span></li>"+
                 "<li id='"+obj.ID+"' role='option' tabindex='0' data-theme='c' >"+
                 "<a href='#'>"+
                 "<img width='40' height='40' src='images/apple.jpg'/>"+

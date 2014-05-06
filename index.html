@@ -42,6 +42,29 @@
             }
         });
     }
+    function deleteQuestion(deleteid){
+
+        $.ajax({
+            type: "get",
+            url: 'http://www.ysrule.com/yy/deletequestion.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
+            data: {deleteid:deleteid
+            },
+            cache: true, //默认值true
+            dataType: "jsonp",
+            jsonp: "callbackfun",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            jsonpCallback: "jsonpCallback",
+            //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+            //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
+            success: function (json) {
+                alert("删除成功！");
+
+
+            },
+            error: function (error) {
+                alert("erroe");
+            }
+        });
+    }
 
    </script>
 
