@@ -556,6 +556,7 @@ $(document).ready(function () {
                                    $("#detailSickContent")[0].innerText=$("#detailSickContent")[0].innerText.substr(0,3)+unescape(n.sickContent);
                                    $("#detailSickDate")[0].innerText=$("#detailSickDate")[0].innerText.substr(0,3)+ages(unescape(n.sickDate));
                                    $("#isblack")[0].innerText=unescape(n.isblack);
+                                   $("#detailSickDesc")[0].innerText  =$("#detailSickDesc")[0].innerText.substr(0,4)+unescape(n.description);
                                    $("#hisQuestion").unbind();
                                    $("#hisQuestion").click(function(){
                                        $("#messageList").empty();
