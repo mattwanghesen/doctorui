@@ -19,7 +19,26 @@
     <script src="index.js">
 
   </script>
-    <script> function spanClick(agreeid){
+    <script>
+
+        function showLoader() {
+
+            $.mobile.loading('show', {
+                text: '加载中...',
+                textVisible: true,
+                theme: 'a',
+                textonly: false,
+                html: ""
+            });
+        }
+
+
+        function hideLoader()
+        {
+            $.mobile.loading('hide');
+        }
+
+        function spanClick(agreeid){
 
         $.ajax({
             type: "get",
@@ -91,7 +110,7 @@
                 <li><a href="#index" class="ui-btn-active" data-icon="home">登陆</a></li>
                 <li><a href="#memberSearch" data-icon="grid">会员查询</a></li>
                 <li><a href="#adviceList" data-icon="info">我的问题</a></li>
-                <li><a href="#myOrder"  data-icon="gear">我的订单</a></li>
+                <li><a href="#task"  data-icon="gear">增加医生</a></li>
             </ul>
         </nav>
     </footer>
@@ -129,7 +148,7 @@
                 <li><a href="#index" class="ui-btn-active" data-icon="home">登陆</a></li>
                 <li><a href="#memberSearch" data-icon="grid">会员查询</a></li>
                 <li><a href="#adviceList" data-icon="info">我的问题</a></li>
-                <li><a href="#myOrder"  data-icon="gear">我的订单</a></li>
+                <li><a href="#task"  data-icon="gear">增加医生</a></li>
             </ul>
         </nav>
     </footer>
@@ -142,6 +161,7 @@
         <a data-role="button" href="#adviceList">上一步</a>
     </div>
     <div data-role="content">
+        <div id="messages">
         <ul data-role="listview" id="messageDetails" class="ui-listview" data-inset="true" role="listbox" >
             <li><a href="#">
                 <h2>养生</h2>
@@ -149,6 +169,7 @@
                 <p class="ui-li-aside">养生</p>
             </a></li>
         </ul>
+            </div>
         <div data-role="fieldcontain">
             <label for="questionAskMore">医生回答:</label>
             <textarea cols="40" rows="8" name="textarea" id="questionAskMore" placeholder="请回答"></textarea>
@@ -189,7 +210,7 @@
                 <li><a href="#index" class="ui-btn-active" data-icon="home">登陆</a></li>
                 <li><a href="#memberSearch" data-icon="grid">会员查询</a></li>
                 <li><a href="#adviceList" data-icon="info">我的问题</a></li>
-                <li><a href="#myOrder"  data-icon="gear">我的订单</a></li>
+                <li><a href="#task"  data-icon="gear">增加医生</a></li>
             </ul>
         </nav>
     </footer>
@@ -248,7 +269,7 @@
                 <li><a href="#index" class="ui-btn-active" data-icon="home">登陆</a></li>
                 <li><a href="#memberSearch" data-icon="grid">会员查询</a></li>
                 <li><a href="#adviceList" data-icon="info">我的问题</a></li>
-                <li><a href="#myOrder"  data-icon="gear">我的订单</a></li>
+                <li><a href="#task"  data-icon="gear">增加医生</a></li>
             </ul>
         </nav>
     </footer>
@@ -330,12 +351,70 @@
                 <li><a href="#index" class="ui-btn-active" data-icon="home">登陆</a></li>
                 <li><a href="#memberSearch" data-icon="grid">会员查询</a></li>
                 <li><a href="#adviceList" data-icon="info">我的问题</a></li>
-                <li><a href="#myOrder"  data-icon="gear">我的订单</a></li>
+                <li><a href="#task"  data-icon="gear">增加医生</a></li>
             </ul>
         </nav>
     </footer>
 </div><!-- /page -->
+<div data-role="page" id="addDoctor" data-theme="a">
+    <div data-theme="a" data-role="header" data-position="fixed">
+        <h3>
+            我的资料
+        </h3>
+    </div>
+    <div data-role="content">
+       <input type="text" name="username" id="dName" placeholder="用户名" data-clear-btn=true/>
+        <input type="text" name="username" id="image" placeholder="image" data-clear-btn=true/>
+        <input type="text" name="username" id="title" placeholder="职称" data-clear-btn=true/>
+        <input type="text" name="username" id="adress" placeholder="adress" data-clear-btn=true/>
+        <div data-role="fieldcontain">
+            <label for="remark">描述:</label>
+            <textarea cols="40" rows="8" name="remark" id="remark" placeholder="请输入咨询内容"></textarea>
+        </div>
 
+        <a data-role="button" id="submitDoctor" data-theme="a">提交</a>
 
+    </div>
+    <footer data-theme="a" data-role="footer" data-position="fixed">
+        <nav data-role="navbar">
+            <ul>
+                <li><a href="#index" class="ui-btn-active" data-icon="home">登陆</a></li>
+                <li><a href="#memberSearch" data-icon="grid">会员查询</a></li>
+                <li><a href="#adviceList" data-icon="info">我的问题</a></li>
+                <li><a href="#task"  data-icon="gear">增加医生</a></li>
+            </ul>
+        </nav>
+    </footer>
+</div>
+<div data-role="page" data-theme="a" id="task" class="my-page">
+
+    <div data-role="header" data-theme="a">
+        <h1>在线医生</h1>
+        <a href="grid-listview.html" data-shadow="false" data-iconshadow="false" data-icon="arrow-l" data-iconpos="notext" data-rel="back" data-ajax="false">Back</a>
+    </div><!-- /header -->
+
+    <div data-role="content" data-theme="a">
+
+        <ul data-role="listview" id="listDoctor" >
+            <li><a href="#">
+                <h2>养生</h2>
+                <p>道法自然，天人合一</p>
+                <p class="ui-li-aside">iOS</p>
+            </a></li>
+        </ul>
+        <a href="" data-role="button" data-theme="b" id="addDoc" >增加</a>
+    </div><!-- /content -->
+
+    <footer data-theme="a" data-role="footer" data-position="fixed">
+        <nav data-role="navbar">
+            <ul>
+                <li><a href="#index" data-icon="home">首页</a></li>
+                <li><a href="#task"  class="ui-btn-active" data-icon="grid">在线医生</a></li>
+                <li><a href="#similiarCase"  data-icon="info">相似案例</a></li>
+                <li><a href="#register"  data-icon="gear">账户</a></li>
+            </ul>
+        </nav>
+    </footer>
+</div><!-- /page -->
 </body>
 </html>

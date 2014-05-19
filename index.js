@@ -48,7 +48,91 @@ $(document).ready(function () {
         $("#messageList").empty();
         getMyQuestions();
     })
+    $("#task").on("pageshow",function(event){
 
+        getDoctors();
+
+    });
+    function getDoctors() {
+        showLoader();
+        $.ajax({
+            type: "get",
+            url: 'http://www.ysrule.com/yy/doctorView.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
+            data: {userId:localStorage.getItem('userId')
+            },
+            cache: true, //默认值true
+            dataType: "jsonp",
+            jsonp: "callbackfun",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            jsonpCallback: "jsonpCallback",
+            //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+            //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
+            success: function (json) {
+                var ul=$("#listDoctor").empty();
+                var data = json.magazineTab.records;
+                $.each(data, function(i, n){
+                    addDoctor(n);
+
+                });
+                $("#listDoctor").listview("refresh");
+                var ulHomes = $("#listDoctor")[0].children;
+                hideLoader();
+                $(ulHomes).each(function(){
+                    $(this).click(function(){
+                        localStorage.setItem('currentID', this.id);
+
+                        $.each(data, function(i, n){
+                            if(n.ID==localStorage.getItem('currentID')){
+                                localStorage.setItem('currentDoctorName', unescape(n.username));
+                                localStorage.setItem('currentDoctorID', n.ID);
+                                $("#doctorUsername")[0].innerText=unescape(n.username);
+                                //$("#doctorSex")[0].innerText=$("#doctorSex")[0].innerText.substr(0,3)+(unescape(n.sex)=="man"?"男":"女");
+                                //$("#doctorBirthday")[0].innerText=$("#doctorBirthday")[0].innerText.substr(0,3)+ages(unescape(n.birthday));
+                                $("#doctorTitle")[0].innerText=unescape(n.title);
+                                $("#doctorRemark")[0].innerText=unescape(n.remark);
+                                $("#doctorAddress")[0].innerText=unescape(n.address);
+                                //$("#doctorSickContent")[0].innerText=$("#doctorSickContent")[0].innerText.substr(0,3)+unescape(n.sickContent);
+                                //$("#doctorSickDate")[0].innerText=$("#doctorSickDate")[0].innerText.substr(0,3)+ages(unescape(n.sickDate));
+
+                            }
+
+                        });
+
+                        $.mobile.changePage("#doctorDetail", { transition: "slideup", changeHash: false });
+                    });
+
+                });
+                // hideLoader();
+
+            },
+            error: function (error) {
+                hideLoader();
+                alert("网络连接错误！");
+            }
+        });
+
+
+        function jsonpCallback(data) //回调函数
+        {
+            alert(data.message); //
+        }
+
+    }
+    function addDoctor(obj) {
+        var ul=$("#listDoctor");
+        var li= document.createElement("li");
+        var href_a = document.createElement("a");
+        var head = document.createElement("h2");
+        var img = document.createElement("img");
+        href_a.innerHTML="<img src='images/apple.jpg'><h2>"+unescape(obj.username)+"</h2><p>"+unescape(obj.remark)+"</p> <p class='ui-li-aside'>主治医师</p>";
+        //href_a.href="javascript:del('"+id+"');";
+        // href_a.innerHTML ="del";
+        //li.innerHTML=txt;
+        //li.id=id;
+        li.innerHTML= href_a.outerHTML;
+        li.id=obj.ID;
+        li.class="userListClass";
+        ul[0].innerHTML+=li.outerHTML;
+    }
     function getMyQuestions() {
 
         $.ajax({
@@ -655,7 +739,7 @@ $(document).ready(function () {
         var ul=$("#messageDetails");
         var listStr="";
         if(obj.isDoctor!="True"){
-            listStr= "<li data-role='list-divider' role='heading' tabindex='0' data-theme='c' class='ui-li ui-li-divider ui-btn ui-bar-e ui-btn-up-d' style='font-size:8pt;font-weight:normal;white-space:normal;'>"+
+            listStr= "<li data-role='list-divider' role='heading' tabindex='0'  class='ui-li ui-li-divider ui-btn ui-bar-e ui-btn-up-c' style='font-size:8pt;font-weight:normal;white-space:normal;'>"+
                 unescape(obj.username)+" 发布于："+unescape(obj.createtime)+
                 "<span onclick='deleteQuestion("+obj.ID+");' class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;background: url(images/like1.jpg) no-repeat;padding:3px;padding-left:20px'>"+obj.agreenumber+"</span></li>"+
                 "<li id='"+obj.ID+"' role='option' tabindex='0' data-theme='c' >"+
@@ -663,7 +747,7 @@ $(document).ready(function () {
                 "<img width='40' height='40' src='images/like.jpg'/>"+
                 "<div style='font-size:9pt;font-weight:normal;word-break:break-all;white-space:normal;'>"+unescape(obj.content)+"</div></a></li>";
         }else{
-            listStr= "<li data-role='list-divider'  role='heading' tabindex='0' class='ui-li ui-li-divider ui-btn-b ui-bar-e ui-btn-up-c' style='font-size:8pt;font-weight:normal'>"+
+            listStr= "<li data-role='list-divider'  role='heading' tabindex='0' class='ui-li ui-li-divider ui-btn-c ui-bar-e ui-btn-up-c' style='font-size:8pt;font-weight:normal'>"+
                 unescape(obj.doctorname)+" 发布于："+unescape(obj.createtime)+
                 "<span onclick='deleteQuestion("+obj.ID+");' class='ui-li-count ui-btn-up-c ui-btn-corner-all' style='right:5px;background: url(images/like1.jpg) no-repeat;padding:3px;padding-left:20px'>"+obj.agreenumber+"</span></li>"+
                 "<li id='"+obj.ID+"' role='option' tabindex='0' data-theme='c' >"+
@@ -832,6 +916,27 @@ $(document).ready(function () {
         }
 
 
+    });
+    $("#submitDoctor").click(function(){
+        $.ajax({
+            type: "get",
+            url: 'http://www.ysrule.com/ysrule/addDoctor.asp', //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
+            data: {id: 10, code: localStorage.getItem('phoneNumber'), question: $('#question').val()},
+            cache: true, //默认值true
+            dataType: "jsonp",
+            jsonp: "callbackfun",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            jsonpCallback: "jsonpCallback",
+            //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+            //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
+            success: function (json) {
+                if (json.message == 0) {
+                    alert('提交成功！');
+                }
+            },
+            error: function (error) {
+                alert("error");
+            }
+        });
     });
 
 });
