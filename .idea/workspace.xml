@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c42d997a-a0d1-44a6-be85-6d881a8c3b84" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-    </list>
+    <list default="true" id="c42d997a-a0d1-44a6-be85-6d881a8c3b84" name="Default" comment="" />
     <ignored path="doctorui.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="c42d997a-a0d1-44a6-be85-6d881a8c3b84" time="1400473588931" ignored="false" />
     <file path="/index.html" changelist="c42d997a-a0d1-44a6-be85-6d881a8c3b84" time="1400552265481" ignored="false" />
     <file path="/index.js" changelist="c42d997a-a0d1-44a6-be85-6d881a8c3b84" time="1400571143630" ignored="false" />
     <file path="/a.dummy" changelist="c42d997a-a0d1-44a6-be85-6d881a8c3b84" time="1400232327515" ignored="false" />
-    <file path="$PROJECT_DIR$/../test/index.html" changelist="c42d997a-a0d1-44a6-be85-6d881a8c3b84" time="1400551347585" ignored="false" />
+    <file path="$PROJECT_DIR$/../test/index.html" changelist="c42d997a-a0d1-44a6-be85-6d881a8c3b84" time="1400577187739" ignored="false" />
     <file path="$PROJECT_DIR$/../test/index.js" changelist="c42d997a-a0d1-44a6-be85-6d881a8c3b84" time="1400571145015" ignored="false" />
     <file path="$PROJECT_DIR$/../test/themes/testone.min.css" changelist="c42d997a-a0d1-44a6-be85-6d881a8c3b84" time="1400231560645" ignored="false" />
     <file path="$PROJECT_DIR$/../test/themes/jquery.mobile.icons.min.css" changelist="c42d997a-a0d1-44a6-be85-6d881a8c3b84" time="1400231560645" ignored="false" />
@@ -49,7 +46,7 @@
       <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="92" column="57" selection-start="3713" selection-end="3713" vertical-scroll-proportion="0.58912385">
+            <state line="101" column="124" selection-start="4402" selection-end="4402" vertical-scroll-proportion="0.76888216">
               <folding>
                 <marker date="1400568787248" expanded="true" signature="26225:26257" placeholder="..." />
                 <marker date="1400568787248" expanded="true" signature="26405:26494" placeholder="..." />
@@ -451,7 +448,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="57" selection-start="3713" selection-end="3713" vertical-scroll-proportion="0.58912385">
+        <state line="101" column="124" selection-start="4402" selection-end="4402" vertical-scroll-proportion="0.76888216">
           <folding>
             <marker date="1400568787248" expanded="true" signature="26225:26257" placeholder="..." />
             <marker date="1400568787248" expanded="true" signature="26405:26494" placeholder="..." />
